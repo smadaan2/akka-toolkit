@@ -36,6 +36,7 @@ object WebServer1 {
   def fetchItem(itemId: Long): Future[Option[Item]] = Future {
     orders.find(o => o.id == itemId)
   }
+
   def saveOrder(order: Order): Future[Done] = {
     orders = order match {
       case Order(items) => items ::: orders
@@ -69,12 +70,13 @@ object WebServer1 {
         }
 
 
-    val bindingFuture = Http().bindAndHandle(route, "localhost", 8080)
-    println(s"Server online at http://localhost:8080/\nPress RETURN to stop...")
- //   StdIn.readLine() // let it run until user presses return
-//    bindingFuture
-//      .flatMap(_.unbind()) // trigger unbinding from the port
-//      .onComplete(_ ⇒ system.terminate()) // and shutdown when done
+    val bindingFuture = Http().bindAndHandle(route, "localhost", 8082)
+    println(s"Server online at http://localhost:8082/\nPress RETURN to stop...")
+
+    //   StdIn.readLine() // let it run until user presses return
+    //    bindingFuture
+    //      .flatMap(_.unbind()) // trigger unbinding from the port
+    //      .onComplete(_ ⇒ system.terminate()) // and shutdown when done
 
   }
 }
